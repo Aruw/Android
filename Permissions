@@ -1,0 +1,22 @@
+    @Override
+    public void onClick(View view){
+        if(view.getId() == R.id.btnVideo){
+            //SOLICITACAO DE PERMISSOES DE FORMA PERFEITA!!
+            ArrayList<String> permissions = new ArrayList<String>();
+
+            if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+            if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.CAMERA);
+            }
+
+            if(permissions.isEmpty()){
+                abrirCamera();
+            }else{
+                String[] permissoesPraRequisitar = new String[permissions.size()];
+                permissions.toArray(permissoesPraRequisitar);
+                ActivityCompat.requestPermissions(getActivity(), permissoesPraRequisitar, 0);
+            }
+        }
+    }
